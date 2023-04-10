@@ -3,4 +3,5 @@
 - Debug lives system
 - New hazards at 5000m (Current hazard system picks randomly)
 - New themes every so often (when to switch themes?)
-- Rework Hazard system, possibly (Current hazard system is A. Buggy and B. only accounts for full wall obstacles) 
+- Rework Hazard system, possibly (Current hazard system is A. Buggy and B. only accounts for full wall obstacles, and C. always spawns three obstacles in a row)
+- Get help Reworking Hazard system
