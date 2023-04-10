@@ -178,6 +178,13 @@ int jumppara;
         CurrentState = State.Slide;
 
         anim.SetTrigger(slidepara);
+
+
+    }
+
+    public void forceShot()
+    {
+        Debug.Log("BANG!");
     }
 
     public void MovePlayer(int d) //since this is public, it can be used by UI
