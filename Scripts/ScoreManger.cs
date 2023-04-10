@@ -354,16 +354,16 @@ public class ScoreManger : MonoBehaviour
                 this.score = score;
             }
            
-            }
-
         }
+        public struct LeaderboardUIEntry
+        {
+            public Text[] initials;
+            public Text scoreText;
+        }
+    }
 
     //This is different than our entries we save off to a file, these use Unity's Text Components to be display
-    public struct LeaderboardUIEntry
-    {
-        public Text[] initials;
-        public Text scoreText;
-    }
+    
 
 
 }
