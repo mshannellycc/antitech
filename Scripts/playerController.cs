@@ -237,6 +237,10 @@ int jumppara;
             v = (int)vNew;
         }
 
+        if(Input.GetButtonDown(inputNames.ShootButton)&& CurrentState == State.Run)
+        {
+            Debug.Log("BANG!");
+        }
 
         if ((Input.GetButtonDown(inputNames.jumpAxis) || v== 1) && CurrentState == State.Run)
         {
@@ -367,6 +371,6 @@ int jumppara;
   
     void PauseEditor()
     {
-        UnityEditor.EditorApplication.isPaused = true;
+       // UnityEditor.EditorApplication.isPaused = true;
     }
 }
