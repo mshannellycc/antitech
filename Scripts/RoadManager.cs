@@ -13,6 +13,13 @@ public class RoadManager : Singleton<RoadManager>
    GameObject[] loadedPieces;
     // List of GameObject for instantiated road pieces
     List<GameObject> roadPieces;
+
+
+    public GameObject[] Theme1Pieces;
+    public GameObject[] Theme2Pieces;
+    public GameObject[] Theme3Pieces;
+
+
     // Transform of the currne road pieces corners
     Transform beginLeft, beginRight, endLeft, endRight;
     //Variable to represent the rotation point of current road piece
@@ -23,18 +30,23 @@ public class RoadManager : Singleton<RoadManager>
     [SerializeField]
     int numberOfPieces = 10;
     [SerializeField]
+    //this will always be the first 2 pieces
     string hardCodedPiecesName = "Straight60m";
     [SerializeField]
    public float roadSpeed = 20f;
 
+    [SerializeField]
+    string TunnelPieceName;
 
     public int theme = 0; 
 
     public void changeTheme()
     {
-        if (theme > 2)
+        roadPieces.Add(Instantiate(Resources.Load("RoadPieces/" + TunnelPieceName) as GameObject));
+        if (theme < 2)
         {
             theme++;
+
         }
         else
         {
@@ -48,6 +60,12 @@ public class RoadManager : Singleton<RoadManager>
         OnAddPiece += x => { };
         // Load all files of type GameObject from the RoadPieces folder
         loadedPieces = Resources.LoadAll<GameObject>("RoadPieces");
+
+        //TODO: Add code that seperates the roadpieces into the three themes, I think i can do that by putting all 3 themes into seperate folders, then loading them
+        //E.G Resources.LoadAll<GameObject>("RoadPieces/Theme1")
+
+
+
 
         // Initialize list in memory
         roadPieces = new List<GameObject>();
@@ -112,6 +130,19 @@ public class RoadManager : Singleton<RoadManager>
         // Generate random number
         int randomIndex = Random.Range(0, loadedPieces.Length);
         // Instantiate random road and add to list
+
+
+        if(theme == 0)
+        {
+            //basically, instead of using loadedpieces, we use the themexpieces[randomIndex]
+        }else if (theme == 1)
+        {
+
+        }else 
+        {
+
+        }
+
         roadPieces.Add(Instantiate(loadedPieces[randomIndex], roadPieces[roadPieces.Count - 1].transform.position, roadPieces[roadPieces.Count - 1].transform.rotation));
 
         //if (CompareTag(null))
