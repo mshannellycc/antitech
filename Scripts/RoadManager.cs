@@ -25,7 +25,7 @@ public class RoadManager : Singleton<RoadManager>
     [SerializeField]
     string hardCodedPiecesName = "Straight60m";
     [SerializeField]
-    float roadSpeed = 20f;
+   public float roadSpeed = 20f;
 
 
     public int theme = 0; 

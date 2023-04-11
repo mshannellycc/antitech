@@ -289,7 +289,7 @@ public class CollisonManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < collisonSpheres.Length; i++)
+       /* for (int i = 0; i < collisonSpheres.Length; i++)
         {
             //vector that moves it to final position
             Vector3 displacement = slidespheres[i] - collisonSpheres[i].offset;
@@ -302,8 +302,7 @@ public class CollisonManager : MonoBehaviour
             Gizmos.color = Color.red;
 
             Gizmos.DrawSphere(player.transform.position + offset, collisonSpheres[i].radius);
-        }
-
+        } */
     }
 
 }

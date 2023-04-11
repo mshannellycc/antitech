@@ -12,9 +12,9 @@ public class OsbtacleManager : MonoBehaviour
 
     List<GameObject> Obstacles;
     // Transform of the currne Obstacle's corners
-    Transform beginLeft, beginRight, endLeft, endRight;
+  
     //Variable to represent the rotation point of current obstacle
-    Vector3 rotationPoint = Vector3.zero;
+  
     // Start is called before the first frame update
 
     [SerializeField]
@@ -99,7 +99,7 @@ public class OsbtacleManager : MonoBehaviour
 
             float halfroadlength = roadpiecelength / 2f;
 
-            float curDistance = distInterval - halfroadlength;
+            float curDistance = distInterval - halfroadlength - leftOver;
 
 
            if (curDistance >= halfroadlength) 

@@ -22,6 +22,7 @@ public class ScoreManger : MonoBehaviour
 
     [SerializeField]
     Text Scoretext;
+    [SerializeField]
     Text lifeText;
 
     void Awake()
@@ -57,6 +58,7 @@ public class ScoreManger : MonoBehaviour
         {
             lifemanage.Addlives(1);
             tempscore -= 1000;
+            RoadManager.Instance.roadSpeed += 0.5f;// = Mathf.Exp(lifemanage.Getlives());
         }
 
 
@@ -229,22 +231,7 @@ public class ScoreManger : MonoBehaviour
 
         }
 
-        public void LoadDataOntoUI()
-        {
-            // "Leaderboard_UI" GameObject must be active or enabled in our Unity Scene to be visible
-            leaderboardRoot.gameObject.SetActive(true);
-            // Set entries' text - for every entry from index 0 to 9
-            for (int i = 0; i < entriesUI.Length; i++)
-            {
-                string initials = entries[i].intials;
-                for (int j = 0; j < 3; j++)
-                {
-                    //get the initials from the file and display them in their correct location on the ui
-                    entriesUI[i].initials[j].text = initials[j].ToString();
-                }
-                entriesUI[i].scoreText.text = entries[i].score.ToString();
-            }
-        }
+        
 
         void WipeLeaderboard()
         {
@@ -297,7 +284,22 @@ public class ScoreManger : MonoBehaviour
 
 
 
-      
+        public void LoadDataOntoUI()
+        {
+            // "Leaderboard_UI" GameObject must be active or enabled in our Unity Scene to be visible
+            leaderboardRoot.gameObject.SetActive(true);
+            // Set entries' text - for every entry from index 0 to 9
+            for (int i = 0; i < entriesUI.Length; i++)
+            {
+                string initials = entries[i].intials;
+                for (int j = 0; j < 3; j++)
+                {
+                    //get the initials from the file and display them in their correct location on the ui
+                    entriesUI[i].initials[j].text = initials[j].ToString();
+                }
+                entriesUI[i].scoreText.text = entries[i].score.ToString();
+            }
+        }
 
         public void Close()
         {
