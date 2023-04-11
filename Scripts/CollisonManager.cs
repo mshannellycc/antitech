@@ -210,14 +210,14 @@ public class CollisonManager : MonoBehaviour
 
             if(lives <= 0)
             {
-                Debug.Log("Gameover not workin");
+               // Debug.Log("Gameover not workin");
                 outoflives();
             }
         }
 
         if (collisions.Count > 0)
         {
-            Debug.Log("Not Broken");
+           // Debug.Log("Not Broken");
             onObstacleCollision();
 
         }
@@ -301,9 +301,9 @@ public class CollisonManager : MonoBehaviour
 
             Vector3 offset = collisonSpheres[i].offset + displacement;
 
-            Gizmos.color = Color.red;
+           // Gizmos.color = Color.red;
 
-            Gizmos.DrawSphere(player.transform.position + offset, collisonSpheres[i].radius);
+          //  Gizmos.DrawSphere(player.transform.position + offset, collisonSpheres[i].radius);
         } 
     }
 
