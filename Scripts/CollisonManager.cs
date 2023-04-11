@@ -172,7 +172,7 @@ public class CollisonManager : MonoBehaviour
 
     public void Addlives(int Lives)
     {
-        if( lives + Lives >= maxlives + 1)
+        if( lives + Lives <= maxlives + 1)
         {
             lives += Lives;
         }
@@ -210,12 +210,14 @@ public class CollisonManager : MonoBehaviour
 
             if(lives <= 0)
             {
+                Debug.Log("Gameover not workin");
                 outoflives();
             }
         }
 
         if (collisions.Count > 0)
         {
+            Debug.Log("Not Broken");
             onObstacleCollision();
 
         }
@@ -289,7 +291,7 @@ public class CollisonManager : MonoBehaviour
             return;
         }
 
-       /* for (int i = 0; i < collisonSpheres.Length; i++)
+        for (int i = 0; i < collisonSpheres.Length; i++)
         {
             //vector that moves it to final position
             Vector3 displacement = slidespheres[i] - collisonSpheres[i].offset;
@@ -302,7 +304,7 @@ public class CollisonManager : MonoBehaviour
             Gizmos.color = Color.red;
 
             Gizmos.DrawSphere(player.transform.position + offset, collisonSpheres[i].radius);
-        } */
+        } 
     }
 
 }
