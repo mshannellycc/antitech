@@ -178,6 +178,13 @@ int jumppara;
         CurrentState = State.Slide;
 
         anim.SetTrigger(slidepara);
+
+
+    }
+
+    public void forceShot()
+    {
+        Debug.Log("BANG!");
     }
 
     public void MovePlayer(int d) //since this is public, it can be used by UI
@@ -237,6 +244,10 @@ int jumppara;
             v = (int)vNew;
         }
 
+        if(Input.GetButtonDown(inputNames.ShootButton)&& CurrentState == State.Run)
+        {
+            Debug.Log("BANG!");
+        }
 
         if ((Input.GetButtonDown(inputNames.jumpAxis) || v== 1) && CurrentState == State.Run)
         {
@@ -367,6 +378,6 @@ int jumppara;
   
     void PauseEditor()
     {
-        UnityEditor.EditorApplication.isPaused = true;
+       // UnityEditor.EditorApplication.isPaused = true;
     }
 }

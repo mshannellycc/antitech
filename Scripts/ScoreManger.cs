@@ -22,9 +22,10 @@ public class ScoreManger : MonoBehaviour
 
     [SerializeField]
     Text Scoretext;
+    [SerializeField]
     Text lifeText;
 
-    void Awake()
+   private void Awake()
     {
         if (!Directory.Exists(Application.persistentDataPath + "/Data"))
         {
@@ -41,8 +42,18 @@ public class ScoreManger : MonoBehaviour
 
         lifemanage = gameObject.GetComponent<CollisonManager>();
 
+
+        Init();
         //GetComponent<CollisonManager>().onObstacleCollision += Displayleader;
     }
+
+    void Init()
+    {
+        //
+        Transform canvas = transform.Find("Canvas");
+        pleaderboard.InitUI(canvas);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -50,13 +61,14 @@ public class ScoreManger : MonoBehaviour
         currentscore += (ulong)(Time.deltaTime * scorerate);
 
         Scoretext.text = "Score: " + currentscore;
-        tempscore = currentscore;
+        tempscore += (ulong)(Time.deltaTime * scorerate);
         lifeText.text = "Lives: " + lifemanage.Getlives();
 
         if(tempscore / 1000 >= 1)
         {
             lifemanage.Addlives(1);
-            tempscore -= 1000;
+            tempscore = 0;
+            RoadManager.Instance.roadSpeed += 0.00000005f;// = Mathf.Exp(lifemanage.Getlives());
         }
 
 
@@ -162,6 +174,7 @@ public class ScoreManger : MonoBehaviour
 
 
 
+            
 
             if (place < 0)
             {
@@ -229,22 +242,7 @@ public class ScoreManger : MonoBehaviour
 
         }
 
-        public void LoadDataOntoUI()
-        {
-            // "Leaderboard_UI" GameObject must be active or enabled in our Unity Scene to be visible
-            leaderboardRoot.gameObject.SetActive(true);
-            // Set entries' text - for every entry from index 0 to 9
-            for (int i = 0; i < entriesUI.Length; i++)
-            {
-                string initials = entries[i].intials;
-                for (int j = 0; j < 3; j++)
-                {
-                    //get the initials from the file and display them in their correct location on the ui
-                    entriesUI[i].initials[j].text = initials[j].ToString();
-                }
-                entriesUI[i].scoreText.text = entries[i].score.ToString();
-            }
-        }
+        
 
         void WipeLeaderboard()
         {
@@ -263,41 +261,25 @@ public class ScoreManger : MonoBehaviour
             }
 
         }
-            public void InitUI(Transform canvas)
+         
+
+
+        public void LoadDataOntoUI()
         {
-            // Initialize entries - we have a top 10 entry
-            entriesUI = new LeaderboardUIEntry[NUMSLOTS];
+            // "Leaderboard_UI" GameObject must be active or enabled in our Unity Scene to be visible
+            leaderboardRoot.gameObject.SetActive(true);
+            // Set entries' text - for every entry from index 0 to 9
             for (int i = 0; i < entriesUI.Length; i++)
             {
-                //each entry has only 3 initials
-                entriesUI[i].initials = new Text[3];
-            }
-            //use the canvas to find the Leaderboard UI and then our entries
-            leaderboardRoot = canvas.Find("GameScreen").Find("Leaderboard_UI");
-            Transform entryRoot = leaderboardRoot.Find("Entries");
-
-            //for every entry on our "Leaderboard_UI"
-            for (int i = 0; i < entriesUI.Length; i++)
-            {
-                //Find "Entry ( )" GameObject using an integer counter between the brackets
-                Transform entry = entryRoot.Find($"Entry ({i + 1})");
-
-                // Initials text components
+                string initials = entries[i].intials;
                 for (int j = 0; j < 3; j++)
                 {
-                    //Find "Initials ( )" GameObject using an integer counter between the brackets
-                    entriesUI[i].initials[j] = entry.Find($"Initials ({j + 1})").GetComponent<Text>();
+                    //get the initials from the file and display them in their correct location on the ui
+                    entriesUI[i].initials[j].text = initials[j].ToString();
                 }
-                //Getting the score text component for each entry
-                entriesUI[i].scoreText = entry.Find("Score").GetComponent<Text>();
+                entriesUI[i].scoreText.text = entries[i].score.ToString();
             }
-            //finally, get the context message text that'll be used to give the player instructions
-            contextMessage = leaderboardRoot.Find("Context Message").GetComponent<Text>();
         }
-
-
-
-      
 
         public void Close()
         {
@@ -341,6 +323,38 @@ public class ScoreManger : MonoBehaviour
                 ulong score = ulong.Parse(loadedItemProperties[1]);
                 entries[i] = new LeaderboardEntry(initials, score);
             }
+        }
+
+        public void InitUI(Transform canvas)
+        {
+            // Initialize entries - we have a top 10 entry
+            entriesUI = new LeaderboardUIEntry[NUMSLOTS];
+            for (int i = 0; i < entriesUI.Length; i++)
+            {
+                //each entry has only 3 initials
+                entriesUI[i].initials = new Text[3];
+            }
+            //use the canvas to find the Leaderboard UI and then our entries
+            leaderboardRoot = canvas.Find("GameScreen").Find("Leaderboard_UI");
+            Transform entryRoot = leaderboardRoot.Find("Entries");
+
+            //for every entry on our "Leaderboard_UI"
+            for (int i = 0; i < entriesUI.Length; i++)
+            {
+                //Find "Entry ( )" GameObject using an integer counter between the brackets
+                Transform entry = entryRoot.Find($"Entry ({i + 1})");
+
+                // Initials text components
+                for (int j = 0; j < 3; j++)
+                {
+                    //Find "Initials ( )" GameObject using an integer counter between the brackets
+                    entriesUI[i].initials[j] = entry.Find($"Initials ({j + 1})").GetComponent<Text>();
+                }
+                //Getting the score text component for each entry
+                entriesUI[i].scoreText = entry.Find("Score").GetComponent<Text>();
+            }
+            //finally, get the context message text that'll be used to give the player instructions
+            contextMessage = leaderboardRoot.Find("Context Message").GetComponent<Text>();
         }
 
         public struct LeaderboardEntry
