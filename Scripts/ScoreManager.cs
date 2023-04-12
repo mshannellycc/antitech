@@ -15,6 +15,9 @@ public class ScoreManager : MonoBehaviour
     ulong currentScore;
     ulong tempscore;
 
+
+    public GameObject Mushroom;
+
     // Inspector parameters
     [SerializeField]
     public int scoreRate = 100;
