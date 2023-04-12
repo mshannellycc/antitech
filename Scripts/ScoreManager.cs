@@ -15,9 +15,12 @@ public class ScoreManager : MonoBehaviour
     ulong currentScore;
     ulong tempscore;
 
+
+    public GameObject Mushroom;
+
     // Inspector parameters
     [SerializeField]
-    int scoreRate = 100;
+    public int scoreRate = 100;
     // Points gained per second
     [SerializeField]
     Text playerScoreText;
@@ -49,6 +52,15 @@ public class ScoreManager : MonoBehaviour
         Init();
     }
 
+    public ulong getScore()
+    {
+        return currentScore;
+    }
+
+    public void addlives(int add)
+    {
+        lifemanage.Addlives(1);
+    }
     void Init()
     {
         //
@@ -66,16 +78,17 @@ public class ScoreManager : MonoBehaviour
         }
         else
         {
+           // Debug.Log("ScoreUpdate!" + currentScore.ToString());
             //We will up the rate per second, casting to a ulong
-            currentScore += (ulong)(Time.deltaTime * scoreRate);
-            playerScoreText.text = "SCORE: " + currentScore;
-            tempscore += (ulong)(Time.deltaTime * scoreRate);
+            currentScore += (ulong)(Time.deltaTime * scoreRate * (RoadManager.Instance.roadSpeed/10));
+            playerScoreText.text = "SCORE: " + currentScore.ToString("000000");
+            tempscore += (ulong)(Time.deltaTime * scoreRate * (RoadManager.Instance.roadSpeed / 10));
             lifeText.text = "Lives: " + lifemanage.Getlives();
             if (tempscore / 1000 >= 1)
             {
-                lifemanage.Addlives(1);
+                //Spawn Mushroom
                 tempscore = 0;
-                RoadManager.Instance.roadSpeed += 0.000005f;// = Mathf.Exp(lifemanage.Getlives());
+                RoadManager.Instance.roadSpeed += 0.0005f;// = Mathf.Exp(lifemanage.Getlives());
             }
 
         }
