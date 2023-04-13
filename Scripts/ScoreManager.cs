@@ -15,9 +15,6 @@ public class ScoreManager : MonoBehaviour
     ulong currentScore;
     ulong tempscore;
 
-
-    public GameObject Mushroom;
-
     // Inspector parameters
     [SerializeField]
     public int scoreRate = 100;
@@ -25,10 +22,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     Text playerScoreText;
 
+    public GameObject Mushroom;
+
     [SerializeField]
     Text lifeText;
 
     CollisonManager lifemanage;
+    MarksRoads speedmanage;
 
     private Leaderboard leaderboard;
 
@@ -49,6 +49,7 @@ public class ScoreManager : MonoBehaviour
         currentScore = 0;
         leaderboard = new Leaderboard();
         lifemanage = gameObject.GetComponent<CollisonManager>();
+        speedmanage = gameObject.GetComponent<MarksRoads>();
         Init();
     }
 
@@ -66,11 +67,16 @@ public class ScoreManager : MonoBehaviour
         //
         Transform canvas = transform.Find("Canvas");
         leaderboard.InitUI(canvas);
+        
     }
+
+
+   
 
     // Update is called once per frame
     void Update()
     {
+        PropLogic laneread = speedmanage.roadObjects[speedmanage.roadObjects.Count].GetComponent<PropLogic>();
         //you can check if the gameobject in the scene is active by using GameObject.ActiveSelf
         if (leaderboard.leaderboardRoot.gameObject.activeSelf)
         {
@@ -80,15 +86,24 @@ public class ScoreManager : MonoBehaviour
         {
            // Debug.Log("ScoreUpdate!" + currentScore.ToString());
             //We will up the rate per second, casting to a ulong
-            currentScore += (ulong)(Time.deltaTime * scoreRate * (RoadManager.Instance.roadSpeed/10));
+            currentScore += (ulong)(Time.deltaTime * scoreRate * (speedmanage.roadSpeed));
             playerScoreText.text = "SCORE: " + currentScore.ToString("000000");
-            tempscore += (ulong)(Time.deltaTime * scoreRate * (RoadManager.Instance.roadSpeed / 10));
+            tempscore += (ulong)(Time.deltaTime * scoreRate * (speedmanage.roadSpeed));
             lifeText.text = "Lives: " + lifemanage.Getlives();
             if (tempscore / 1000 >= 1)
             {
                 //Spawn Mushroom
+                int laneIndex = UnityEngine.Random.Range(0,laneread.lanes);
+
+                float laneOffset = (laneIndex - 1) * laneread.roadWidth / laneread.lanes;
+
+                //Instantiate at current road position + offset * Vector3.right (1,0,0)
+                Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
+              //  Instantiate(Mushroom, obstaclePos, Quaternion.identity, laneread.getObstacleFolder());
+
+
                 tempscore = 0;
-                RoadManager.Instance.roadSpeed += 0.0005f;// = Mathf.Exp(lifemanage.Getlives());
+                speedmanage.roadSpeed += 0.005f;// = Mathf.Exp(lifemanage.Getlives());
             }
 
         }
