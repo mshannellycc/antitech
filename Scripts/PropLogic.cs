@@ -20,6 +20,8 @@ public class PropLogic : MonoBehaviour
    
     private GameObject obstacleFolder;
 
+    public GameObject mushroom;
+
     private void Awake()
     {
         rend = GetComponent<Renderer>();
@@ -28,6 +30,7 @@ public class PropLogic : MonoBehaviour
 
         //Just for organizing the hierarchy
         obstacleFolder = GameObject.Find("ObstacleFolder");
+        
 
         //SpawnObstacle();
     }
@@ -36,6 +39,24 @@ public class PropLogic : MonoBehaviour
     public Transform getObstacleFolder()
     {
         return obstacleFolder.transform;
+    }
+
+
+    public void SpawnMushroom()
+    {
+       
+            //spawns the mushroom as an obstacle.
+
+            //Pick a random lane
+            int laneIndex = Random.Range(0, lanes);
+
+            //Offset the size of a lane, so you don't have things appearing between lanes
+            float laneOffset = (laneIndex - 1) * roadWidth / lanes;
+
+            //Instantiate at current road position + offset * Vector3.right (1,0,0)
+            Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
+            Instantiate(mushroom, obstaclePos, Quaternion.identity, obstacleFolder.transform);
+        
     }
 
 

@@ -32,6 +32,8 @@ public class ScoreManager : MonoBehaviour
 
     private Leaderboard leaderboard;
 
+    public int lanes = 3;
+
     private void Awake()
     {
         if (!Directory.Exists(Application.persistentDataPath + "/Data"))
@@ -76,7 +78,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PropLogic laneread = speedmanage.roadObjects[speedmanage.roadObjects.Count].GetComponent<PropLogic>();
+       // PropLogic laneread = speedmanage.roadObjects[speedmanage.roadObjects.Count].GetComponent<PropLogic>();
         //you can check if the gameobject in the scene is active by using GameObject.ActiveSelf
         if (leaderboard.leaderboardRoot.gameObject.activeSelf)
         {
@@ -90,16 +92,20 @@ public class ScoreManager : MonoBehaviour
             playerScoreText.text = "SCORE: " + currentScore.ToString("000000");
             tempscore += (ulong)(Time.deltaTime * scoreRate * (speedmanage.roadSpeed));
             lifeText.text = "Lives: " + lifemanage.Getlives();
+
             if (tempscore / 1000 >= 1)
             {
-                //Spawn Mushroom
-                int laneIndex = UnityEngine.Random.Range(0,laneread.lanes);
 
-                float laneOffset = (laneIndex - 1) * laneread.roadWidth / laneread.lanes;
+                float roadwidth = speedmanage.roadRendererSize.x;
+
+                //Spawn Mushroom
+                int laneIndex = UnityEngine.Random.Range(0,lanes);
+
+                float laneOffset = (laneIndex - 1) * roadwidth / lanes;
 
                 //Instantiate at current road position + offset * Vector3.right (1,0,0)
-                Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
-              //  Instantiate(Mushroom, obstaclePos, Quaternion.identity, laneread.getObstacleFolder());
+               Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
+                //  Instantiate(Mushroom, obstaclePos, Quaternion.identity, GameObject.Find("ObstacleFolder"));
 
 
                 tempscore = 0;

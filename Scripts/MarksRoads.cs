@@ -21,10 +21,15 @@ public class MarksRoads : MonoBehaviour
 
     public int roadsPassed = 0;
 
+    public ScoreManager scoremanage;
+
+    ulong tempscore;
+
     private void Start()
     {
         player = GameObject.Find("Player");
         roadFolder = GameObject.Find("RoadsFolder");
+        scoremanage = GameObject.Find("GameManager").GetComponent<ScoreManager>();
 
         // Create initial road objects
         for (int i = 0; i < initialRoadCount; i++)
@@ -43,13 +48,30 @@ public class MarksRoads : MonoBehaviour
             //If it's at least the third road, call SpawnObstacle() on this road piece.
             if (i > 1)
             {
-                road.GetComponent<PropLogic>().SpawnObstacle();
+               
+                if (tempscore / 1000 >= 1)
+                {
+                    road.GetComponent<PropLogic>().SpawnMushroom();
+                }
+                else
+                {
+                    road.GetComponent<PropLogic>().SpawnObstacle();
+                }
             }
+
+            
+
+
         }
+
+
+
     }
 
     private void Update()
     {
+
+        tempscore += (ulong)(Time.deltaTime * scoremanage.scoreRate * roadSpeed);
         // Update player distance based on position.
         //This is a bit redundant since the player never moves, but it's here if we want to get crazy
         playerDistance = player.transform.position.z;
