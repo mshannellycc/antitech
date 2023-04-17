@@ -45,6 +45,22 @@ public class UIbehaviour : MonoBehaviour
     {
         playerController.Instance.forceSlide();
     }
+
+    public void shoot()
+    {
+        Vector3 mouse = Input.mousePosition;
+
+
+        GameObject Target = GameObject.Find("Target");
+        Vector3 TargetCam = Camera.main.WorldToScreenPoint(Target.transform.position);
+
+        if(mouse == TargetCam)
+        {
+            //Destroy Barrier, this code will probably have to be moved and reworked to work with touch
+        }
+        
+
+    }
     public void Reset()
     {
         //Scene thisS = SceneManager.GetActiveScene();
