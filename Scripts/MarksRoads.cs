@@ -25,8 +25,16 @@ public class MarksRoads : MonoBehaviour
 
     ulong tempscore;
 
+    public delegate void RoadPlace(GameObject Piece);
+    public event RoadPlace PlaceRoad;
+
     private void Start()
     {
+        // PlaceRoad += CreateNewRoads();
+        PlaceRoad += x => { };
+
+
+
         player = GameObject.Find("Player");
         roadFolder = GameObject.Find("RoadsFolder");
         scoremanage = GameObject.Find("GameManager").GetComponent<ScoreManager>();
@@ -116,6 +124,7 @@ public class MarksRoads : MonoBehaviour
     void CreateNewRoads(int prefabIndex = -1)
     {
         GameObject road;
+        
 
         //Kind of redundant, but prevents weirdness if the object is outside of the List at any point.
         //If it is, pick a new road, if it isn't, just Instantiate the one it was given.
@@ -140,7 +149,7 @@ public class MarksRoads : MonoBehaviour
         //This allows for the number of initial roads to change at any point.
         road.transform.position = Vector3.forward * totalRoadLength;
         road.name = "Basic Road";
-
+        PlaceRoad(road);
         roadObjects.Add(road);
     }
 }

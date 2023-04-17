@@ -7,11 +7,15 @@ public class DecorationHandler : MonoBehaviour
 
     GameObject[] LoadedDecor;
 
+    MarksRoads roadMan;
+
 
     void Awake()
     {
         LoadedDecor = Resources.LoadAll<GameObject>("Decoration");
+        roadMan  = GameObject.Find("GameManager").GetComponent<MarksRoads>();
 
+        roadMan.PlaceRoad += PlaceDecor;
         //add Event that can tell when marksroads places a road here, mark
     }
     // Start is called before the first frame update
