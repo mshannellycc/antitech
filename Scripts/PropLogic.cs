@@ -22,6 +22,9 @@ public class PropLogic : MonoBehaviour
 
     public GameObject mushroom;
 
+    public bool MObstaclesEnabled = false;
+    
+
     private void Awake()
     {
         rend = GetComponent<Renderer>();
@@ -69,6 +72,22 @@ public class PropLogic : MonoBehaviour
             int obstacleIndex = Random.Range(0, obstacles.Length);
             GameObject obs = obstacles[obstacleIndex];
 
+            if (!MObstaclesEnabled)
+            {
+
+                while (obstacles[obstacleIndex].gameObject.ToString() == "Nuke_Barrel")
+                { // || obstacles[obstacleIndex].gameObject.ToString() == "Gas_Cloud");
+                     obstacleIndex = Random.Range(0, obstacles.Length);
+                     obs = obstacles[obstacleIndex];
+
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        UnityEditor.EditorApplication.isPlaying = false;
+                        Application.Quit();
+                    }
+                }
+            }
+
             //Pick a random lane
             int laneIndex = Random.Range(0, lanes);
 
@@ -79,5 +98,12 @@ public class PropLogic : MonoBehaviour
             Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
             Instantiate(obs, obstaclePos, Quaternion.identity, obstacleFolder.transform);
         }
+    }
+
+
+    public void AddObstacle()
+    {
+
+        MObstaclesEnabled = true;
     }
 }
