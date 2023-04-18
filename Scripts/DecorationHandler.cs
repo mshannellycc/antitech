@@ -6,50 +6,79 @@ public class DecorationHandler : MonoBehaviour
 {
 
     GameObject[] LoadedDecor;
-
     MarksRoads roadMan;
 
+    public Renderer roadRenderer;
+    public Vector3 roadRendererSize;
+
+    public float roadLength, roadWidth;
+
+    public float numDecorations;
+
+    public Vector3 offset = new Vector3 (10, 0, 0);
+
+    public float buildingSpacing = 100f;
+    public float numBuildingsPerSide = 5f;
+
+    
 
     void Awake()
     {
-        LoadedDecor = Resources.LoadAll<GameObject>("Decoration");
-        roadMan  = GameObject.Find("GameManager").GetComponent<MarksRoads>();
+        LoadedDecor = Resources.LoadAll<GameObject>("Decorations");
+        //roadMan  = GameObject.Find("GameManager").GetComponent<MarksRoads>();
+        roadRenderer = GetComponent<Renderer>();
 
-        roadMan.PlaceRoad += PlaceDecor;
-        //add Event that can tell when marksroads places a road here, mark
+        roadRendererSize = roadRenderer.bounds.size;
+        roadLength = roadRendererSize.z;
+        roadWidth = roadRendererSize.x;
     }
+
     // Start is called before the first frame update
-    private void PlaceDecor(GameObject RoadPiece)
+    private void Start()
     {
-        int laneIndex = Random.Range(0, 1);
+        Vector3 leftEdge = transform.position - transform.right * roadWidth;
+        Vector3 rightEdge = transform.position + transform.right * roadWidth;
 
+        float xLeft = leftEdge.x + buildingSpacing / 2f;
+        float xRight = rightEdge.x - buildingSpacing / 2f;
 
-        Transform beginLeft = RoadPiece.transform.Find("BeginLeft");
-        Transform endLeft = RoadPiece.transform.Find("EndLeft");
-        Transform beginRight = RoadPiece.transform.Find("BeginRight");
-        Transform endRight = RoadPiece.transform.Find("EndRight");
-
-
-        if(laneIndex == 0)
+        for (int i = 0; i < numBuildingsPerSide; i++)
         {
-            //place to the left of the road
+            int rand = Random.Range(0, LoadedDecor.Length);
 
-           
+            GameObject go = LoadedDecor[rand];
 
-                 int randomObstacle = Random.Range(0, LoadedDecor.Length);
+            Collider propCollider = go.GetComponentInChildren<Collider>();
 
-            GameObject Decor = Instantiate(LoadedDecor[randomObstacle], new Vector3(RoadPiece.transform.position.x, beginLeft.transform.position.y - endLeft.transform.position.y, RoadPiece.transform.position.z), RoadPiece.transform.rotation, RoadPiece.transform);
+            //Store the size of the collider
+            Vector3 colliderSize = propCollider.bounds.size;
+
+            // Instantiate building on left side
+            Vector3 buildingPos = new Vector3(xLeft - 8, 0f, leftEdge.z + i * buildingSpacing);
+            if (Physics2D.OverlapCircle(go.transform.position, colliderSize.x + 100f) == null)
+            {
+                Instantiate(go, buildingPos, Quaternion.identity, transform.parent);
+            }
+            else
+            {
+                return;
+            }
 
 
-        }
-        else if( laneIndex == 1)
-        {
-            int randomObstacle = Random.Range(0, LoadedDecor.Length);
 
-            GameObject Decor = Instantiate(LoadedDecor[randomObstacle], new Vector3(RoadPiece.transform.position.x, beginRight.transform.position.y - endRight.transform.position.y, RoadPiece.transform.position.z), RoadPiece.transform.rotation, RoadPiece.transform);
-
-
-            //place to the right of the road
+            // Instantiate building on right side
+            buildingPos = new Vector3(xRight + 8, 0f, rightEdge.z - i * buildingSpacing);
+            if (Physics2D.OverlapCircle(go.transform.position, colliderSize.x + 100f) == null)
+            {
+                Instantiate(go, buildingPos, Quaternion.identity, transform.parent);
+            }
+            else
+            {
+                return;
+            }
         }
     }
+
+
+
 }
