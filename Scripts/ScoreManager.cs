@@ -93,23 +93,9 @@ public class ScoreManager : MonoBehaviour
             tempscore += (ulong)(Time.deltaTime * scoreRate * (speedmanage.roadSpeed));
             lifeText.text = "Lives: " + lifemanage.Getlives();
 
-            if (tempscore / 1000 >= 1)
-            {
-
-                float roadwidth = speedmanage.roadRendererSize.x;
-
-                //Spawn Mushroom
-                int laneIndex = UnityEngine.Random.Range(0,lanes);
-
-                float laneOffset = (laneIndex - 1) * roadwidth / lanes;
-
-                //Instantiate at current road position + offset * Vector3.right (1,0,0)
-               Vector3 obstaclePos = transform.position + laneOffset * Vector3.right;
-                //  Instantiate(Mushroom, obstaclePos, Quaternion.identity, GameObject.Find("ObstacleFolder"));
-
-
-                tempscore = 0;
-                speedmanage.roadSpeed += 0.005f;// = Mathf.Exp(lifemanage.Getlives());
+           if (tempscore /1000 >= 1){
+                SoundScript.playeffect("playerJumpSound");
+                tempscore -= 1000;
             }
 
         }
