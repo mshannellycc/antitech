@@ -481,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5584845764453980496}
   - component: {fileID: 6609617389461927436}
+  - component: {fileID: 6317227781640944116}
   m_Layer: 0
   m_Name: Nuke_Barrel
   m_TagString: Untagged
@@ -497,7 +498,7 @@ Transform:
   m_GameObject: {fileID: 5101042422632121322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3759847724386375845}
   m_Father: {fileID: 0}
@@ -515,6 +516,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121b6280089ef7d4181f92fdd8d4634f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &6317227781640944116
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101042422632121322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019128261, y: 0.03488424, z: 0.023086563}
+  m_Center: {x: 0.0012956942, y: 0.010265583, z: 0.00090620667}
 --- !u!1 &5601382086800660456
 GameObject:
   m_ObjectHideFlags: 0

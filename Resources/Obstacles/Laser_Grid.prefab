@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 411254046200443031}
+  - component: {fileID: 4311152422107487750}
   m_Layer: 0
   m_Name: Laser_Grid
   m_TagString: Untagged
@@ -153,6 +154,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4311152422107487750
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080514046065142317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2284553, y: 0.011549935, z: 0.16555803}
+  m_Center: {x: 0.01306603, y: 0.04303793, z: -0.0020179988}
 --- !u!1 &1161797817179231994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,8 +1038,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.27708837, y: 0.008529675, z: 0.11964845}
-  m_Center: {x: -0.0008372188, y: 0.041373666, z: -0.026652103}
+  m_Size: {x: 0.3106567, y: 0.008031301, z: 0.16267382}
+  m_Center: {x: -0.00028286577, y: 0.034970842, z: -0.0051395358}
 --- !u!1 &9154394810638002844
 GameObject:
   m_ObjectHideFlags: 0

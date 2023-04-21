@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987091840355001915}
   - component: {fileID: 1381324562372335203}
-  - component: {fileID: 6842240193198516096}
+  - component: {fileID: 4738058884654580508}
   m_Layer: 0
   m_Name: DroneShip (1)
   m_TagString: Untagged
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121b6280089ef7d4181f92fdd8d4634f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &6842240193198516096
-MeshCollider:
+--- !u!65 &4738058884654580508
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,10 +117,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: -1
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.17754893, y: 0.024635507, z: 0.25300953}
+  m_Center: {x: 0.008753652, y: 0.49815208, z: -0.055310667}
 --- !u!1 &824261832816214698
 GameObject:
   m_ObjectHideFlags: 0
