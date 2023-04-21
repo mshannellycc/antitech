@@ -147,7 +147,7 @@ int jumppara;
             CurrentState = State.Slide;
 
             anim.SetTrigger(slidepara);
-            
+            SoundScript.playeffect("PlayerSlide");
         }
 
         if (jump == 1f && CurrentState == State.Run)
@@ -176,7 +176,7 @@ int jumppara;
     public void forceSlide()
     {
         CurrentState = State.Slide;
-
+        SoundScript.playeffect("PlayerSlide");
         anim.SetTrigger(slidepara);
 
 
@@ -189,7 +189,7 @@ int jumppara;
 
     public void MovePlayer(int d) //since this is public, it can be used by UI
     {
-
+        SoundScript.playeffect("PlayerDodge");
         if (currentlanechange != null)
         {
             if (currentlane + d != previouslane)
